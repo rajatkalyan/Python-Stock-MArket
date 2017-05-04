@@ -16,15 +16,15 @@ time.sleep(1)
 def readandSay():
     
     #time.sleep(1)
-    f = open('Book1.csv', 'r')
+    f = open('stocklog.csv', 'r')
     reader = csv.reader(f,delimiter=',')
     next(f)
-    f1=open("logfile.txt","a+")
+    #f1=open("logfile.txt","a+")
     
         
     for row in reader:
         try:
-        
+            f1=open("logfile.txt","a+")
             ##print "hey"
             comp_name= row[0]
             minValue=float(row[1])
@@ -49,12 +49,14 @@ def readandSay():
             print price_new
             print maxValue
             f1.write(name + "\n")
-            #f1.close()
+            f1.close()
             if price_new<minValue:
-                engine.say(name+ "   Share Value Dropped")
+                engine.say(name+ "   Share Value Dropped to ")
+                engine.say(price_new)
                 engine.runAndWait()
             elif price_new>maxValue:
-                engine.say(name+ "   Share Value Increased")
+                engine.say(name+ "   Share Value Increased to" )
+                engine.say(price_new)
                 engine.runAndWait()
                 
         except TypeError:
@@ -65,7 +67,7 @@ def readandSay():
             #time.sleep(2)
         except IOError:
             print "Spelling mistake,Must have used some extra space ,Check It"
-    f1.close()
+    #f1.close()
     
 while True:
   
